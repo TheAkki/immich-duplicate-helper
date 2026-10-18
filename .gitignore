@@ -1,0 +1,27 @@
+# Dependencies (the project currently has none, in case some are added later)
+node_modules/
+
+# Test and coverage output
+coverage/
+.nyc_output/
+*.lcov
+
+# Logs
+*.log
+npm-debug.log*
+
+# Secrets and local configuration - never commit
+.env
+.env.*
+*.pem
+*.key
+
+# Editor and operating system
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Local settings of AI tools
+.claude/settings.local.json

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<!--
+  SPDX-License-Identifier: GPL-3.0-or-later
+  Copyright (C) 2026 theakki
+  See the LICENSE file in the project root.
+-->
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Immich Duplicate</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1 data-i18n="app.title"></h1>
+    <label><span data-i18n="lang.label"></span>
+      <select id="language"></select>
+    </label>
+  </header>
+
+  <main>
+    <section>
+      <h2 data-i18n="conn.title"></h2>
+      <label><span data-i18n="conn.server"></span>
+        <input type="url" data-setting="serverUrl" placeholder="http://immich.local:2283" autocomplete="off">
+      </label>
+      <label><span data-i18n="conn.token"></span>
+        <input type="password" id="token" autocomplete="off">
+      </label>
+      <button id="load" type="button" data-i18n="conn.load"></button>
+      <p id="status" role="status"></p>
+    </section>
+
+    <section>
+      <h2 data-i18n="rules.title"></h2>
+      <fieldset>
+        <legend data-i18n="rules.prefer"></legend>
+        <label><input type="checkbox" data-setting="rules.externalLibrary"> <span data-i18n="rules.externalLibrary"></span></label>
+        <label><input type="checkbox" data-setting="rules.readOnly"> <span data-i18n="rules.readOnly"></span></label>
+        <label><input type="checkbox" data-setting="rules.resolution"> <span data-i18n="rules.resolution"></span></label>
+        <label><input type="checkbox" data-setting="rules.exif"> <span data-i18n="rules.exif"></span></label>
+        <label><input type="checkbox" data-setting="rules.fileSize"> <span data-i18n="rules.fileSize"></span></label>
+        <label><input type="checkbox" data-setting="rules.originalPattern"> <span data-i18n="rules.originalPattern"></span></label>
+        <label><span data-i18n="rules.originalFilePatterns"></span>
+          <textarea rows="2" data-setting="originalFilePatterns" placeholder="^\d{8}_\d{6}"></textarea>
+        </label>
+        <label><input type="checkbox" data-setting="rules.preferredAlbum"> <span data-i18n="rules.preferredAlbum"></span></label>
+        <label><span data-i18n="rules.preferredAlbums"></span>
+          <textarea rows="2" data-setting="preferredAlbums" placeholder="Originale"></textarea>
+        </label>
+        <label><input type="checkbox" data-setting="rules.preferredTag"> <span data-i18n="rules.preferredTag"></span></label>
+        <label><span data-i18n="rules.preferredTags"></span>
+          <textarea rows="2" data-setting="preferredTags" placeholder="behalten"></textarea>
+        </label>
+      </fieldset>
+      <fieldset>
+        <legend data-i18n="rules.duplicateHint"></legend>
+        <label><input type="checkbox" data-setting="rules.duplicateAlbum"> <span data-i18n="rules.duplicateAlbum"></span></label>
+        <label><span data-i18n="rules.duplicateAlbums"></span>
+          <textarea rows="2" data-setting="duplicateAlbums" placeholder="WhatsApp"></textarea>
+        </label>
+        <label><input type="checkbox" data-setting="rules.duplicatePattern"> <span data-i18n="rules.duplicatePattern"></span></label>
+        <label><span data-i18n="rules.duplicateFilePatterns"></span>
+          <textarea rows="2" data-setting="duplicateFilePatterns" placeholder="^IMG-\d{8}-WA\d+"></textarea>
+        </label>
+        <label><input type="checkbox" data-setting="rules.duplicateTag"> <span data-i18n="rules.duplicateTag"></span></label>
+        <label><span data-i18n="rules.duplicateTags"></span>
+          <textarea rows="2" data-setting="duplicateTags" placeholder="messenger"></textarea>
+        </label>
+      </fieldset>
+      <fieldset>
+        <legend data-i18n="rules.hard"></legend>
+        <label><input type="checkbox" data-setting="hard.filename"> <span data-i18n="rules.filename"></span></label>
+        <label><input type="checkbox" data-setting="hard.timestamp"> <span data-i18n="rules.timestamp"></span></label>
+        <label><input type="checkbox" data-setting="hard.patternExemptsFilename"> <span data-i18n="rules.patternExemptsFilename"></span></label>
+      </fieldset>
+      <fieldset>
+        <legend data-i18n="rules.action"></legend>
+        <label><input type="radio" name="action" value="delete" data-setting="action"> <span data-i18n="rules.action.delete"></span></label>
+        <label><input type="radio" name="action" value="stack" data-setting="action"> <span data-i18n="rules.action.stack"></span></label>
+        <label><input type="radio" name="action" value="tag" data-setting="action"> <span data-i18n="rules.action.tag"></span></label>
+        <label><span data-i18n="rules.tagName"></span>
+          <input type="text" data-setting="tagName" placeholder="duplicate">
+        </label>
+      </fieldset>
+      <label><input type="checkbox" data-setting="autoVerify"> <span data-i18n="rules.autoVerify"></span></label>
+      <label><span data-i18n="rules.prefixes"></span>
+        <textarea rows="3" data-setting="readOnlyPrefixes" placeholder="/mnt/originals"></textarea>
+      </label>
+    </section>
+
+    <section>
+      <h2 data-i18n="filter.title"></h2>
+      <label><input type="checkbox" data-setting="filters.hideProtectedOnlyGroups"> <span data-i18n="filter.hideProtectedOnlyGroups"></span></label>
+      <label><input type="checkbox" data-setting="filters.hideGroupsWithoutProposals"> <span data-i18n="filter.hideGroupsWithoutProposals"></span></label>
+      <label><input type="checkbox" data-setting="filters.hideAllTagged"> <span data-i18n="filter.hideAllTagged"></span></label>
+      <label><input type="checkbox" data-setting="filters.hideSkipped"> <span data-i18n="filter.hideSkipped"></span></label>
+      <label><input type="checkbox" data-setting="filters.onlySameFilename"> <span data-i18n="filter.onlySameFilename"></span></label>
+      <label><span data-i18n="filter.sameNameAllProtected"></span>
+        <select data-setting="filters.sameNameAllProtected">
+          <option value="off" data-i18n="filter.mode.off"></option>
+          <option value="only" data-i18n="filter.mode.only"></option>
+          <option value="hide" data-i18n="filter.mode.hide"></option>
+        </select>
+      </label>
+      <label><input type="checkbox" data-setting="filters.onlyProtectedDuplicates"> <span data-i18n="filter.onlyProtectedDuplicates"></span></label>
+      <label><span data-i18n="filter.sameNameOtherType"></span>
+        <select data-setting="filters.sameNameOtherType">
+          <option value="off" data-i18n="filter.mode.off"></option>
+          <option value="only" data-i18n="filter.mode.only"></option>
+          <option value="hide" data-i18n="filter.mode.hide"></option>
+        </select>
+      </label>
+      <label><span data-i18n="filter.skipTag"></span>
+        <input type="text" data-setting="skipTagName" placeholder="skip">
+      </label>
+      <button id="remove-skip" type="button" data-i18n="filter.removeSkip"></button>
+      <label><span data-i18n="filter.limit"></span>
+        <select id="limit" data-setting="filters.limit"></select>
+      </label>
+      <label><span data-i18n="filter.search"></span>
+        <input type="search" data-setting="filters.search">
+      </label>
+    </section>
+
+    <section>
+      <h2 data-i18n="result.title"></h2>
+      <p id="warning" class="warning" role="alert" hidden></p>
+      <p id="summary"></p>
+      <p id="funnel"></p>
+      <button class="run-all" type="button"></button>
+      <div id="results"></div>
+      <button class="run-all" type="button"></button>
+    </section>
+  </main>
+
+  <script src="js/config.js"></script>
+  <script src="js/limiter.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/locales/de.js"></script>
+  <script src="js/locales/en.js"></script>
+  <script src="js/sha1.js"></script>
+  <script src="js/patterns.js"></script>
+  <script src="js/assetModel.js"></script>
+  <script src="js/rules.js"></script>
+  <script src="js/albums.js"></script>
+  <script src="js/filters.js"></script>
+  <script src="js/immichApi.js"></script>
+  <script src="js/tagged.js"></script>
+  <script src="js/hashcache.js"></script>
+  <script src="js/identity.js"></script>
+  <script src="js/actions.js"></script>
+  <script src="js/settings.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
