@@ -386,7 +386,7 @@
     result.textContent = t('verify.running');
     result.className = 'verify-result';
     // Look up the card only now: with the automatic check the control is not attached yet at start.
-    result.closest('.card')?.classList.remove('verify-different');
+    result.closest('.card')?.classList.remove('verify-different', 'verify-identical');
     try {
       const r = await state.verifier.verify(original, asset);
       result.textContent = `${t(`verify.${r.verdict}`)} (${t(`verify.via.${r.method}`)})`;

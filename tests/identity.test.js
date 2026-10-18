@@ -104,7 +104,8 @@ test('identity', async (t) => {
   await t.test('cardClass: only non-identical pairs color the card', () => {
     const { cardClass } = require('../js/identity');
     assert.equal(cardClass({ verdict: 'different', method: 'size' }), 'verify-different');
-    assert.equal(cardClass({ verdict: 'identical', method: 'content' }), '');
+    assert.equal(cardClass({ verdict: 'identical', method: 'content' }), 'verify-identical');
+    assert.equal(cardClass({ verdict: 'unknown' }), '');
     assert.equal(cardClass(undefined), '');
     assert.equal(cardClass(null), '');
   });

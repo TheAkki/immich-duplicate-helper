@@ -29,6 +29,7 @@ button.danger { background: var(--danger); color: #fff; border: 0; border-radius
 .card.proposal { border-color: var(--danger); }
 .card.protected, .card.unrelated { opacity: .75; }
 .card.verify-different { background: #c6282826; }
+.card.verify-identical { background: #2e7d3226; }
 .card img { width: 100%; height: 10rem; object-fit: contain; background: #8882; }
 .badge { font-weight: 600; margin: .3rem 0; }
 .props { margin: 0; padding-left: 1rem; }

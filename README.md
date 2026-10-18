@@ -164,7 +164,7 @@ Each group shows the original (green) and the proposals (red) with reason and pr
   dropped when the file changes (different checksum, size or modification time). Thumbnails are also kept
   across loads and may come from the browser cache. To start over, delete the entry `immichDuplicate.contentHashes`
   in the browser's site data. A pair that is not
-  byte-identical gets a red card background.
+  byte-identical gets a red card background, a byte-identical one a light green background.
 
 ### 4. Skip and filter
 

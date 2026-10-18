@@ -72,9 +72,11 @@
     return { verify, clear: () => cache.clear() };
   }
 
-  // CSS class for the card: pairs that are not byte-identical get a red background.
+  // CSS class for the card: byte-identical pairs get a light green background, others a red one.
   function cardClass(result) {
-    return result && result.verdict === VERDICTS.DIFFERENT ? 'verify-different' : '';
+    if (!result) return '';
+    if (result.verdict === VERDICTS.IDENTICAL) return 'verify-identical';
+    return result.verdict === VERDICTS.DIFFERENT ? 'verify-different' : '';
   }
 
   const api = { quickCheck, compareContents, createContentHasher, createVerifier, cardClass };
